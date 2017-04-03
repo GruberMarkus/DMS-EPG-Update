@@ -1,0 +1,54 @@
+Recording Service EPG Update Script
+http://www.dvbviewer.tv/forum/topic/41624-epg-update-script/
+
+
+### New/Changed/Fixed in "2016-10-09 20:00"
+### Neu/Geändert/Behoben in "2016-10-09 20:00"
+.) Changed: CreateEPGEntry now creates missing EPG entries for today and tomorrow.
+   Geändert: CreateEPGEntry erstellt jetzt fehlende EPG-Einträge für heute und morgen.
+
+
+### New/Changed/Fixed in "2016-10-01 14:00"
+### Neu/Geändert/Behoben in "2016-10-01 14:00"
+.) New: The option ClearEPG clears all existing EPG data before the EPG update is started.
+   Neu: Die Option ClearEPG löscht alle bestehenden EPG-Daten bevor das EPG-Update gestartet wird.
+.) Changed: CreateEPGEntry now creates one EPG entry for today and for each of the next seven days, each one lasting 24 hours.
+   Geändert: CreateEPGEntry erstellt jetzt einen EPG-Eintrag für heute und für jeden der nächsten sieben Tage, jewils mit 24 Stunden Laufzeit.
+
+
+### New/Changed/Fixed in "2016-09-30 20:00"
+### Neu/Geändert/Behoben in "2016-09-30 20:00"
+.) New: Option CreateEPGEntry creates a 7 day EPG entry so that channels that do not send an EPG show up in all DVB Viewer EPG windows.
+   Neu: Die Option CreateEPGEntry erstellt einen siebentägigen EPG-Eintrag so dass Sender, die kein EPG senden, in allen EPG-Fenstern des DVB Viewer auftauchen.
+
+
+### New/Changed/Fixed in "2015-07-18 10:00"
+### Neu/Geändert/Behoben in "2015-07-18 10:00"
+.) Changed: The script now only works with Recording Service 1.31 and above, as the new API (status2.html) ist used.
+   Geändert: Das Script funktioniert nur noch mit Recording Service 1.31 und höher, da die neue API (status2.html) genutzt wird.
+
+
+### New/Changed/Fixed in "2014-11-13 21:00"
+### Neu/Geändert/Behoben in "2014-11-13 21:00"
+.) New: The script now works with password protected Recording Service. Thanks to "yogi2009" from the DVBViewer forum!
+   Neu: Das Script funktioniert nun auch mit einem passwortgeschützen Recording Service. Danke an "yogi2009" aus dem DVBViewer-Forum!
+.) New: Unknown <epgudate> values are now logged.
+   Neu: Unbekannte <epgudate>-Werte werden nun im Log ausgegeben.
+.) New: Variable "ActionAfterEPGUpdate" defines what to do after the EPG update - nothing, standby, hibernate or shutdown.
+   Neu: Die Variable "ActionAfterEPGUpdate" gibt an, was nach dem EPG-Update zu tun ist - nichts, Standby, Hibernate oder Shutdown.
+.) Changed: The error source of HTTP connection errors is now logged.
+   Geändert: Die Fehlerquelle von HTTP-Verbindungsfehlern wird nun im Log ausgegeben.
+
+
+### New/Changed/Fixed in "2013-02-16 12:00"
+### Neu/Geändert/Behoben in "2013-02-16 12:00"
+.) New: Script now requires the parameter /ini:<ini-file> to be passed. Parameters are configured in this ini file.
+   Neu: Das Script benötigt nun den Parameter /ini:<ini-Datei>. Einstellungen werden in dieser ini-Datei konfiguriert.
+.) New: Values of the variables are now logged.
+   Neu: Die Werte der Variablen werden nun im Log ausgegeben.
+
+
+### New/Changed/Fixed in "2012-12-30 18:00"
+### Neu/Geändert/Behoben in "2012-12-30 18:00"
+.) New: First draft. See readme.txt for details.
+   Neu: Erster Entwurf. Die Datei readme.txt enthält Details.
