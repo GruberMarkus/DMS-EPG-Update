@@ -2,13 +2,21 @@ Recording Service EPG Update Script
 http://www.dvbviewer.tv/forum/topic/41624-epg-update-script/
 
 
+### New/Changed/Fixed in "2017.04.12.16.00"
+### Neu/Geändert/Behoben in "2016-10-09 20:00"
+.) Changed: The default value for ClearEPG is now set to "true" to manage the new EPG behavior of Digital Media Server 2.0.0.0.
+   Geändert: Der Standardwert für ClearEPG ist jetzt auf "true/wahr" gesetzt, um dem dem geänderten EPG-Verhalten des Digital Media Server 2.0.0.0 zurechtzukommen.
+.) Changed: The option CreateEPGEntry no longer fills all "holes" in a channel's EPG. If there is no EPG at all, an entry for the next 24 hours is created. This is to manage the new EPG behavior of Digital Media Server 2.0.0.0.
+   Geändert: Die Option CreateEPGEntry füllt nicht mehr alle "Löcher" im EPG eines Senders auf. Wenn überhaupt keine EPG-Einträge vorhanden sind, wird einer für die nächsten 24 Stunden erstellt. Dies passiert, um mit dem geänderten EPG-Verhalten des Digital Media Server 2.0.0.0 zurechtzukommen.
+
+
+### New/Changed/Fixed in "2016-10-01 14:00"
 ### New/Changed/Fixed in "2016-10-09 20:00"
 ### Neu/Geändert/Behoben in "2016-10-09 20:00"
 .) Changed: CreateEPGEntry now creates missing EPG entries for today and tomorrow.
    Geändert: CreateEPGEntry erstellt jetzt fehlende EPG-Einträge für heute und morgen.
 
 
-### New/Changed/Fixed in "2016-10-01 14:00"
 ### Neu/Geändert/Behoben in "2016-10-01 14:00"
 .) New: The option ClearEPG clears all existing EPG data before the EPG update is started.
    Neu: Die Option ClearEPG löscht alle bestehenden EPG-Daten bevor das EPG-Update gestartet wird.

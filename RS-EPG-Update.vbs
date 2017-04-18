@@ -1,22 +1,22 @@
 'General script options, dimming and setting public variables
 'Generelle Script-Optionen, Erstellen und Setzen von öffentlichen Variablen
 Option Explicit
-Const ScriptVersion="2016-10-09 20:00"
+Const ScriptVersion="2017.04.12.16.00"
 
-'Protocol, IP/name and port of Recording Service
-'Protokoll, IP/Name und Port des Recording Service
+'Protocol, IP/name and port of DVBViewer Media Server
+'Protokoll, IP/Name und Port des DVBViewer Media Server
 'Default/Standard: "http://127.0.0.1:8089"
 dim ServiceURL
 ServiceURL="http://127.0.0.1:8089"
 
-'Name of the Recording Service user account. No user name is "".
-'Name des Recording Service Benutzers. Kein Benutzername ist "".
+'Name of the DVBViewer Media Server user account. No user name is "".
+'Name des DVBViewer Media Server Benutzers. Kein Benutzername ist "".
 'Default/Standard: ""
 dim ServiceUser
 ServiceUser=""
 
-'Password of the Recording Service user account. No password is "".
-'Passwort des Recording Service Benutzers. Kein Passwort ist "".
+'Password of the DVBViewer Media Server user account. No password is "".
+'Passwort des DVBViewer Media Server Benutzers. Kein Passwort ist "".
 'Default/Standard: ""
 dim ServicePassword
 ServicePassword=""
@@ -316,7 +316,7 @@ LogMsg(LanguageGetLine1Var(019, WaitBeforeStart))
 'CleanLogFile
 call CleanLogFile
 
-'Test connection to Recording Service and authentication
+'Test connection to DVBViewer Media Server and authentication
 ReturnString=HTTPGet(ServiceURL & "/api/status2.html", "")
 If instr(1, ReturnString, "<epgudate>") > 0 then
 	'authentication works, we get data
@@ -330,7 +330,7 @@ end if
 'Clear EPG
 if ClearEPG=true then
 	LogMsg(LanguageGetLine0Var(016))
-	HTTPGet ServiceURL & "/api/egpclear.html", ""
+	HTTPGet ServiceURL & "/api/epgclear.html", ""
 	wscript.sleep(5000)
 end if
 
@@ -378,6 +378,7 @@ do until EPGUpdateFinished=true
 		'Unknown <epgudate> value
 		LogMsg(LanguageGetLine1Var(071, mid(ReturnString,instr(1, ReturnString, "<epgudate>")+10, instr(1, ReturnString, "</epgudate>")-instr(1, ReturnString, "<epgudate>")-10)))
 		LogMsg("***** " & LanguageGetLine0Var(011) & " *****")
+
 		wscript.quit 1
 	end if
 loop
@@ -395,6 +396,7 @@ end if
 
 'Create EPG entries
 if CreateEPGEntry=true then
+	'HTTPGet ServiceURL & "/api/epgclear.html", "source=4"
 	LogMsg(LanguageGetLine0Var(017))
 	epgquerystart=now()
 	epgquerystart=dateadd("h", hour(epgquerystart)*-1, epgquerystart)
@@ -405,8 +407,8 @@ if CreateEPGEntry=true then
 	epgqueryend=dateadd("h", 23, epgqueryend)
 	epgqueryend=dateadd("n", 59, epgqueryend)
 	epgqueryend=dateadd("s", 59, epgqueryend)
-	EPGXMLData="<?xml version=""1.0"" encoding=""ISO-8859-1""?> <!DOCTYPE tv SYSTEM ""xmltv.dtd""><tv source-info-name=""Recording Service EPG Update Script"" generator-info-name=""Recording Service EPG Update Script"">" &_
-		"<programme start=""$start$" & "00"" stop=""$stop$" & "00"" channel=""$EPGChannelID$""><charset>255</charset><title>$title$</title><description>Recording Service EPG Update Script</description></programme></tv>"
+	EPGXMLData="<?xml version=""1.0"" encoding=""ISO-8859-1""?> <!DOCTYPE tv SYSTEM ""xmltv.dtd""><tv source-info-name=""DVBViewer Media Server EPG Update Script"" generator-info-name=""DVBViewer Media Server EPG Update Script"">" &_
+		"<programme start=""$start$" & "00"" stop=""$stop$" & "00"" channel=""$EPGChannelID$""><charset>255</charset><title>$title$</title><description>DVBViewer Media Server EPG Update Script</description></programme></tv>"
 	Set xmlDoc = CreateObject("Msxml2.DOMDocument")
 	xmlDoc.Async = false
 	xmlDoc.validateOnParse = false
@@ -415,9 +417,10 @@ if CreateEPGEntry=true then
 	xmlDoc.Load ServiceURL & "/api/getchannelsxml.html"
 	Set colNodes = xmlDoc.selectNodes("/channels/root/group/channel")
 	c=0
+	a=right("0000" & year(epgquerystart), 4) & right("00" & month(epgquerystart), 2) & right("00" & day(epgquerystart), 2) & right("00" & hour(epgquerystart), 2) & right("00" & minute(epgquerystart), 2) & right("00" & second(epgquerystart), 2)
+	b=right("0000" & year(epgqueryend), 4) & right("00" & month(epgqueryend), 2) & right("00" & day(epgqueryend), 2) & right("00" & hour(epgqueryend), 2) & right("00" & minute(epgqueryend), 2) & right("00" & second(epgqueryend), 2)
 	For Each objNode in colNodes
 		c=c+1
-		redim d(1440*datediff("n", epgquerystart, epgqueryend))
 		wscript.stdout.write chr(13) & string(79," ") & chr(13) & left(right("00000" & c, 5) & "/" & right("00000" & colNodes.length, 5) & ", EPGID " & objNode.Attributes.getNamedItem("EPGID").Text & ", " & objNode.Attributes.getNamedItem("name").Text, 79) & chr(13)
 		Set xmlDocb = CreateObject("Msxml2.DOMDocument")
 		xmlDocb.Async = false
@@ -426,37 +429,9 @@ if CreateEPGEntry=true then
 		xmlDocb.preserveWhiteSpace = false
 		xmlDocb.Load ServiceURL & "/api/epg.html?lvl=2&channel=" & objNode.Attributes.getNamedItem("EPGID").Text & "&start=" & cdbl(epgquerystart) & "&end=" & cdbl(epgqueryend)
 		Set colNodesb = xmlDocb.selectNodes("/epg/programme")
-		For Each objNodeb in colNodesb
-			a=left(objNodeb.Attributes.getNamedItem("start").Text, 4) & "/" & mid(objNodeb.Attributes.getNamedItem("start").Text, 5, 2) & "/" & mid(objNodeb.Attributes.getNamedItem("start").Text, 7, 2) & " " & mid(objNodeb.Attributes.getNamedItem("start").Text, 9, 2) & ":" & mid(objNodeb.Attributes.getNamedItem("start").Text, 11, 2)
-			b=left(objNodeb.Attributes.getNamedItem("stop").Text, 4) & "/" & mid(objNodeb.Attributes.getNamedItem("stop").Text, 5, 2) & "/" & mid(objNodeb.Attributes.getNamedItem("stop").Text, 7, 2) & " " & mid(objNodeb.Attributes.getNamedItem("stop").Text, 9, 2) & ":" & mid(objNodeb.Attributes.getNamedItem("stop").Text, 11, 2)
-			if datediff("n", epgquerystart, a)<0 then a=epgquerystart
-			if datediff("n", epgqueryend, b)>0 then b=epgqueryend
-			for x = datediff("n", epgquerystart, a) to datediff("n", epgquerystart, b)
-				d(x)=1
-			next
-		next
-		newepgstart=null
-		newepgstop=null
-		for w = 1 to datediff("d", epgquerystart, epgqueryend)+1
-			for x = (1440*(w-1)) to ((w*1440)-1)
-				y=dateadd("n", x, epgquerystart)
-				if d(x)<>1 then
-					if isnull(newepgstart)=true then newepgstart = cdbl(right("0000" & year(y), 4) & right("00" & month(y), 2) & right("00" & day(y), 2) & right("00" & hour(y), 2) & right("00" & minute(y), 2)) & "00"
-				else
-					if isnull(newepgstart)=false then
-						y=dateadd("n", -1, y)
-						newepgstop=right("0000" & year(y), 4) & right("00" & month(y), 2) & right("00" & day(y), 2) & right("00" & hour(y), 2) & right("00" & minute(y), 2) & "00"
-					end if
-				end if
-				if x=((w*1440)-1) and isnull(newepgstart)=false then newepgstop=right("0000" & year(y), 4) & right("00" & month(y), 2) & right("00" & day(y), 2) & right("00" & hour(y), 2) & right("00" & minute(y), 2) & "00"
-				if isnull(newepgstart)=false and isnull(newepgstop)=false then
-					'wscript.echo newepgstart & " " & newepgstop
-					HTTPPut ServiceURL & "/cgi-bin/EPGimport", replace(replace(replace(replace(EPGXMLData, "$start$", newepgstart), "$stop$", newepgstop), "$EPGChannelID$", objNode.Attributes.getNamedItem("EPGID").Text), "$title$", objNode.Attributes.getNamedItem("name").Text)
-					newepgstart=null
-					newepgstop=null
-				end if
-			next
-		next
+		if colnodesb.length = 0 then
+			HTTPPut ServiceURL & "/cgi-bin/EPGimport", replace(replace(replace(replace(EPGXMLData, "$start$", a), "$stop$", b), "$EPGChannelID$", objNode.Attributes.getNamedItem("EPGID").Text), "$title$", objNode.Attributes.getNamedItem("name").Text)
+		end if
 	Next
 end if
 wscript.stdout.write chr(13) & string(79," ") & chr(13)
