@@ -1,5 +1,5 @@
 'General script options, dimming and setting public variables
-'Generelle Script-Optionen, Erstellen und Setzen von öffentlichen Variablen
+'Generelle Script-Optionen, Erstellen und Setzen von Ã¶ffentlichen Variablen
 Option Explicit
 Const ScriptVersion="2017.04.12.16.00"
 
@@ -43,11 +43,11 @@ LogFile="DMS-EPG-Update.log"
 '   "0": Only the last run is kept in the log.
 '   Values are rounded up to integer values. "-0,1" becomes "0" etc.
 '   Invalid values are handled as "-1".
-'Anzahl der Durchläufe, die in der Log-Datei aufbewahrt werden sollen.
-'   "-1": Alle Durchläufe werden aufbewahrt.
+'Anzahl der DurchlÃ¤ufe, die in der Log-Datei aufbewahrt werden sollen.
+'   "-1": Alle DurchlÃ¤ufe werden aufbewahrt.
 '   "0": Nur der letzte Lauf wird aufbewahrt.
 '   Werte werden auf Integer-Zahlen aufgerunden. "-0,1" wird "0" etc.
-'   Ungültige Werte werden als "-1" behandelt.
+'   UngÃ¼ltige Werte werden als "-1" behandelt.
 'Default/Standard: 10
 dim RunsToKeepInLog
 RunsToKeepInLog=10
@@ -66,7 +66,7 @@ dim TimeToWaitForEPGUpdateStart
 TimeToWaitForEPGUpdateStart=15
 
 'If ActionAfterEPGUpdate<>"": How many minutes should the script wait until standby prerequisites are met?
-'Wenn ActionAfterEPGUpdate<>"": Wie viele Minuten soll das Script auf die Erfüllung der Standby-Voraussetzungen warten?
+'Wenn ActionAfterEPGUpdate<>"": Wie viele Minuten soll das Script auf die ErfÃ¼llung der Standby-Voraussetzungen warten?
 'Default/Standard: 15
 dim TimeToWaitForActionAfterEPGUpdatePrerequisites
 TimeToWaitForActionAfterEPGUpdatePrerequisites=15
@@ -78,22 +78,22 @@ dim WaitBeforeStart
 WaitBeforeStart=30
 
 'Fill missing EPG entries today and tomorrow
-'Fehlende EPG-Einträge heute und morgen ergänzen
+'Fehlende EPG-EintrÃ¤ge heute und morgen ergÃ¤nzen
 'true or/oder false.
 'Default/Standard: true
 dim CreateEPGEntry
 CreateEPGEntry=true
 
 'Delete all EPG entries before starting EPG update
-'Alle EPG-Einträge vor dem EPG-Update löschen
+'Alle EPG-EintrÃ¤ge vor dem EPG-Update lÃ¶schen
 'true or/oder false.
-'Default/Standard: true
+'Default/Standard: false
 dim ClearEPG
-ClearEPG=true
+ClearEPG=false
 
 
 'Internal variables - do not change!
-'Interne Variablen - nicht verändern!
+'Interne Variablen - nicht verÃ¤ndern!
 dim arrtemp
 dim BeginWaitforEPGUpdateStarted, BeginWaitforActionAfterEPGUpdatePrerequisitesMet, BeginWaitforActionAfterEPGUpdatePrerequisitesMetCount
 dim EPGUpdateFinished, EPGUpdateQueued
@@ -775,7 +775,7 @@ sub FillLCIDDictionary()
 	LCIDDictionary.Add 1085, "Yiddish;yi.ini;yi.ini"
 	LCIDDictionary.Add 1086, "Malay - Malaysia;ms-my.ini;ms.ini"
 	LCIDDictionary.Add 1089, "Swahili;sw.ini;sw.ini"
-	LCIDDictionary.Add 1091, "Uzbek – Latin;uz-uz.ini;uz.ini"
+	LCIDDictionary.Add 1091, "Uzbek Â– Latin;uz-uz.ini;uz.ini"
 	LCIDDictionary.Add 1092, "Tatar;tt.ini;tt.ini"
 	LCIDDictionary.Add 1097, "Tamil;ta.ini;ta.ini"
 	LCIDDictionary.Add 1102, "Marathi;mr.ini;mr.ini"
@@ -796,7 +796,7 @@ sub FillLCIDDictionary()
 	LCIDDictionary.Add 2077, "Swedish - Finland;sv-fi.ini;sv.ini"
 	LCIDDictionary.Add 2092, "Azeri - Cyrillic;az-az.ini;az.ini"
 	LCIDDictionary.Add 2108, "Gaelic - Ireland;gd-ie.ini;gd.ini"
-	LCIDDictionary.Add 2110, "Malay – Brunei;ms-bn.ini;ms.ini"
+	LCIDDictionary.Add 2110, "Malay Â– Brunei;ms-bn.ini;ms.ini"
 	LCIDDictionary.Add 2115, "Uzbek - Cyrillic;uz-uz.ini;uz.ini"
 	LCIDDictionary.Add 3073, "Arabic - Egypt;ar-eg.ini;ar.ini"
 	LCIDDictionary.Add 3076, "Chinese - Hong Kong SAR;zh-hk.ini;zh.ini"
