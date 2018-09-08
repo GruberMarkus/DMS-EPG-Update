@@ -8,27 +8,27 @@ http://www.dvbviewer.tv/forum/topic/41624-epg-update-script/
 Seit der Version 1.23.0.0 bietet das Recording Service einen recht schnellen
 Weg um das EPG aller Sender zu aktualisieren.
 
-Mit einem internen Timer ("EPGStart") ist es möglich, dieses EPG-Update zu
+Mit einem internen Timer ("EPGStart") ist es mÃ¶glich, dieses EPG-Update zu
 starten - dabei muss allerdings eine fixe Laufzeit angegeben werden.
 
 Das Digital Media Server EPG Update Script startet das das EPG-Update und wartet
-solange, bis das Update abgeschlossen ist - unabhängig davon, wie lange es dauert.
+solange, bis das Update abgeschlossen ist - unabhÃ¤ngig davon, wie lange es dauert.
 
-Nach dem Abschluss des Updates wird ein AutoTimer-Task ausgeführt. Der Rechner,
-auf dem das DMS läuft, kann wahlweise in den Standby versetzt werden
-(wenn gewisse Voraussetzungen erfüllt sind).
+Nach dem Abschluss des Updates wird ein AutoTimer-Task ausgefÃ¼hrt. Der Rechner,
+auf dem das DMS lÃ¤uft, kann wahlweise in den Standby versetzt werden
+(wenn gewisse Voraussetzungen erfÃ¼llt sind).
 
-Details zu den Konfigurationsmöglichkeiten finden sich in der Datei "sample.ini".
+Details zu den KonfigurationsmÃ¶glichkeiten finden sich in der Datei "sample.ini".
 
 Das Script wird von der Eingabeaufforderung aus gestartet und erwartet die Angabe
 einer ini-Datei: "cscript.exe DMS-EPG-Update.vbs /ini:sample.ini".
 
-Standardmässig werden alle Meldungen des Script in der Datei
+StandardmÃ¤ssig werden alle Meldungen des Script in der Datei
 "DMS-EPG-Update.log" protokolliert.
 
-Wer mehr Konfigurationsmöglichkeiten benötigt, sollte auf das DVBViewer EPG
+Wer mehr KonfigurationsmÃ¶glichkeiten benÃ¶tigt, sollte auf das DVBViewer EPG
 Update Script von http://www.dvbviewer.tv/forum/topic/41624-epg-update-script/
-zurückgreifen.
+zurÃ¼ckgreifen.
 
 
 [English - Digital Media Server EPG Update Script]
@@ -47,9 +47,9 @@ Digital Media Server can be put into standby mode (wenn certain prerequisites ar
 Details regarding the configuration options can be found in the file "sample.ini".
 
 The script is started via the command prompt and expects the path to an ini file
-as parameter: "cscript.exe RS-EPG-Update.vbs /ini:sample.ini".
+as parameter: "cscript.exe DMS-EPG-Update.vbs /ini:sample.ini".
 
-Per default, all script messages are logged in the file "RS-EPG-Update.log".
+Per default, all script messages are logged in the file "DMS-EPG-Update.log".
 
 If you need more configuration options, you should use the DVBViewer EPG Update
 script from http://www.dvbviewer.tv/forum/topic/41624-epg-update-script/.
